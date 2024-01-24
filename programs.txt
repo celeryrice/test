@@ -1,0 +1,705 @@
+ Demonstrate to handle multiple frames in selenium.
+ 
+package practical3;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+public class practical {
+public static void main(String[] args) {
+// TODO Auto-generated method stub
+//step 1
+System.setProperty("webdriver.chrome.driver", 
+"C:\\Users\\MANISH\\Downloads\\practical\\chromedriver\\chromedriver.exe");
+ WebDriver driver = new ChromeDriver();
+ driver.get("https://www.w3schools.com/");//navigates to the page consisting an 
+iframe.
+ driver.manage().window().maximize();
+ 
+ //step 2
+ driver.switchTo().frame("howto_iframe");
+ System.out.println("*********We are switch ti iframe!!!!************");
+ driver.findElement(By.xpath("html/body/a/img")).click()
+ //clicks the iframe
+ //clicks the iframe
+ System.out.println("******We are done!!!!**********");
+}
+} 
+
+----------------------------------------------
+package practical3;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+public class practical {
+public static void main(String[] args) {
+// TODO Auto-generated method stu
+System.setProperty("webdriver.chrome.driver", 
+"C:\\Users\\MANISH\\Downloads\\practical\\chromedriver\\chromedriver.exe");
+ WebDriver driver = new ChromeDriver();
+ 
+ driver.manage().window().maximize();
+ driver.get("https://www.calculator.net/rent-calculator.html");//navigates to the page consisting 
+an iframe.
+ driver.findElement(By.xpath("//input[@name='monthlydebt']"));
+}
+}
+
+------------------------------------------------------------------------
+We need to add ‘Selector Hub’ extension on google chrome
+
+package practical4;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+public class practical4a {
+public static void main(String[] args) {
+System.setProperty("webdriver.gecko.driver","C:\\Users\\MANISH\\Downloads\\STQA_LAB
+\\STQA_LAB\\Requirements\\STQA_Requirment\\geckodriver-v0.30.0-win64\\geckodriver.exe");
+WebDriver driver= new FirefoxDriver(); //navigates to the Browser
+driver.get("https://www.w3schools.com");
+ driver.manage().window().maximize();
+ 
+ // List of Browser Commands
+ driver.get("https://www.facebook.com/"); // to go to particular pagewww.javatpoint.com
+ String Title =driver.getTitle(); //1
+ System.out.println("WebPage Title is =" +Title);
+ String CurrentURL=driver.getCurrentUrl(); //2
+ System.out.println("WebPage CurrentURL is ="+CurrentURL);
+
+String getPageSource =driver.getPageSource(); //3
+ System.out.println("WebPage PageSource is =" +getPageSource);
+}
+}
+--------------------------------------------
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+public class Pract4B {
+public static void main(String[] args) {
+System.setProperty("webdriver.gecko.driver","D:\\2021129_Practicals\\STQA_LAB\\Require
+ments\\STQA_Requirment\\geckodriver-v0.30.0-win64\\geckodriver.exe");
+WebDriver driver= new FirefoxDriver(); //navigates to the Browser
+driver.get("https://www.w3schools.com");
+ driver.manage().window().maximize();
+ 
+ //List of Navigation Commands
+ driver.get("https://www.google.com/");
+ driver.manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
+ driver.navigate().to("https://artoftesting.com/");
+ driver.manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
+ driver.navigate().back();//2
+ String str1=driver.getCurrentUrl();
+ System.out.println(str1);
+ driver.manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
+ driver.navigate().forward();//3
+ String str2 = driver.getCurrentUrl();
+ System.out.println(str2);
+ driver.manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
+ driver.navigate().refresh();//4
+ String str3 = driver.getCurrentUrl();
+ System.out.println(str3);
+ driver.manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
+ driver.quit();
+}
+}
+
+-------------------------------------------------
+ Implement the find element command
+ 
+ import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+public class practical5 {
+public static void main(String[] args) throws Exception{ {
+// TODO Auto-generated method stub
+System.setProperty("webdriver.gecko.driver","C:\\Users\\MANISH\\Downloads\\STQA_LAB
+\\STQA_LAB\\Requirements\\STQA_Requirment\\geckodriver-v0.30.0-win64\\geckodriver.exe");
+WebDriver driver= new FirefoxDriver(); //navigates to the Browser
+driver.get("https://www.w3schools.com");
+ driver.manage().window().maximize();
+ 
+ driver.get("https://www.calculator.net/mass-calculator.html");
+ //By ID
+ driver.findElement(By.id("cdensity")).clear();
+ Thread.sleep(5000);
+ driver.findElement(By.id("cdensity")).sendKeys("500");
+ Thread.sleep(5000);
+ //By Name
+ driver.findElement(By.name("cvolume")).clear();
+ Thread.sleep(5000);
+ driver.findElement(By.name("cvolume")).sendKeys("4");
+
+Thread.sleep(5000);
+ // By ClassName
+ driver.findElement(By.className("inhalf")).clear();
+ Thread.sleep(5000);
+ driver.findElement(By.className("inhalf")).sendKeys("200");
+ Thread.sleep(5000);
+ // By LinkText
+ driver.findElement(By.linkText("Age")).click();
+ driver.navigate().back();
+ Thread.sleep(5000);
+ // By Partial Link Test
+ driver.findElement(By.partialLinkText("Time")).click();
+ driver.navigate().back();
+ Thread.sleep(5000);
+ // By CSS selector (Limitation on Browser)
+ driver.findElement(By.cssSelector("table.panel tbody:nth-child(1) tr:nth-child(3) td:nthchild(1) > input:nth-child(2)")).click();
+ driver.navigate().back();
+ Thread.sleep(5000);
+ //By XPath
+ driver.findElement(By.xpath("//tbody/tr[3]/td[1]/img[1]")).click();
+ Thread.sleep(5000);
+ driver.quit();
+}}
+
+--------------------------------------------
+: Demonstrate the Locator (id, css selector, path)
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+public class practical6 {
+public static void main(String[] args) throws Exception{
+System.setProperty("webdriver.gecko.driver","C:\\Users\\MANISH\\Downloads\\STQA_LAB
+\\STQA_LAB\\Requirements\\STQA_Requirment\\geckodriver-v0.30.0-win64\\geckodriver.exe");
+WebDriver driver= new FirefoxDriver(); //navigates to the Browser
+driver.get("https://www.w3schools.com");
+ driver.manage().window().maximize();
+ 
+ driver.get("https://www.calculator.net/mass-calculator.html");
+ //By ID
+ driver.findElement(By.id("cdensity")).clear();
+ Thread.sleep(5000);
+ driver.findElement(By.id("cdensity")).sendKeys("500");
+ Thread.sleep(5000);
+ //By Name
+ driver.findElement(By.name("cvolume")).clear();
+ Thread.sleep(5000);
+ driver.findElement(By.name("cvolume")).sendKeys("4");
+ Thread.sleep(5000);
+ // By ClassName
+ driver.findElement(By.className("inhalf")).clear();
+ Thread.sleep(5000);
+
+driver.findElement(By.className("inhalf")).sendKeys("200");
+ Thread.sleep(5000);
+ // By LinkText
+ driver.findElement(By.linkText("Age")).click();
+ driver.navigate().back();
+ Thread.sleep(5000);
+ // By Partial Link Test
+ driver.findElement(By.partialLinkText("Time")).click();
+ driver.navigate().back();
+ Thread.sleep(5000);
+ // By CSS selector (Limitation on Browser)
+ driver.findElement(By.cssSelector("table.panel tbody:nth-child(1) tr:nth-child(3) td:nthchild(1) > input:nth-child(2)")).click();
+ driver.navigate().back();
+ Thread.sleep(5000);
+ //By XPath
+ driver.findElement(By.xpath("//tbody/tr[3]/td[1]/img[1]")).click();
+ Thread.sleep(5000);
+ driver.quit();
+}}
+
+-----------------------------------------------------------------
+ -Understanding synchronization in selenium.
+ 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+public class practical7 {
+public static void main(String[] args) throws InterruptedException {
+// TODO Auto-generated method stub
+System.setProperty("webdriver.chrome.driver", 
+"C:\\Users\\MANISH\\Downloads\\practical\\chromedriver\\chromedriver.exe");
+WebDriver driver=new ChromeDriver();
+//step 2 getting the url
+driver.get("https://opensource-demo.orangehrmlive.com");
+Thread.sleep(5000);
+driver.findElement(By.name("username")).sendKeys("Admin");
+driver.findElement(By.name("password")).sendKeys("admin123");
+driver.findElement(By.className("orangehrm-login-button")).click();
+driver.findElement(By.partialLinkText("Welcome")).click();
+driver.findElement(By.xpath("//*[@id=\"welcome\"]")).click();
+driver.findElement(By.linkText("Logout")).click();
+driver.manage().window().maximize();
+}
+}
+
+-----------------------------------------------------
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+public class prac7_b {
+public static void main(String[] args) {
+// TODO Auto-generated method stub
+System.setProperty("webdriver.chrome.driver", 
+"C:\\STQA_LAB\\Requirements\\STQA_Requirment\\chromedriver_win32106\\chromedriv
+er.exe");
+WebDriver driver=new ChromeDriver();
+//step 2 getting the url
+driver.get("https://opensource-demo.orangehrmlive.com");
+WebDriverWait wt = new WebDriverWait(driver,10);
+//step 3 finding element
+driver.findElement(By.id("txtUsername")).sendKeys("admin");
+driver.findElement(By.name("txtPassword")).sendKeys("admin123");
+driver.findElement(By.className("button")).click();
+driver.findElement(By.partialLinkText("Welcome")).click();
+driver.findElement(By.xpath("//*[@id=\"welcome\"]")).click();
+//step 4
+wt.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Logout")));
+driver.findElement(By.linkText("Logout")).click();
+driver.manage().window().maximize();
+}
+}
+
+-----------------------------------------------
+: Demonstrate different types of alerts
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+public class Pract8 {
+public static void main(String[] args) {
+System.setProperty("webdriver.gecko.driver", 
+"D:\\2021129_Practicals\\STQA_LAB\\Requirements\\STQA_Requirment\\geckodriv
+er-v0.30.0-win64\\geckodriver.exe");
+WebDriver driver = new FirefoxDriver();
+driver.get("http://demo.guru99.com/test/delete_customer.php");
+driver.findElement(By.name("cusid")).sendKeys("53920");
+driver.findElement(By.name("submit")).submit();
+driver.switchTo().alert();
+driver.switchTo().alert().getText();
+}
+}
+
+-----------------------
+Demonstrate Handling Drop Down, List Boxes
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+public class Pract9 {
+
+public static void main(String[] args) {
+System.setProperty("webdriver.gecko.driver", 
+"D:\\2021129_Practicals\\STQA_LAB\\Requirements\\STQA_Requirment\\geckodriv
+er-v0.30.0-win64\\geckodriver.exe");
+WebDriver driver = new FirefoxDriver();
+driver.get("https://blazedemo.com/");
+Select s = new 
+Select(driver.findElement(By.name("fromPort")));
+Select d = new Select(driver.findElement(By.name("toPort")));
+s.selectByVisibleText("Paris");
+d.selectByVisibleText("Rome");
+}
+}
+--------------------------------------------------
+Demonstrate Command Button, Radio buttons & text boxes. Waits command in 
+selenium.
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.*;
+public class Pract10 {
+ public static void main(String[] args) {
+ // declaration and instantiation of objects/variables
+System.setProperty("webdriver.chrome.driver","C:\\Selenium\\chromeDriver\\chromedrive
+r107.exe");
+ WebDriver driver = new ChromeDriver();
+ driver.get("http://demo.guru99.com/test/radio.html");
+ WebElement radio1 = driver.findElement(By.id("vfb-7-1"));
+ WebElement radio2 = driver.findElement(By.id("vfb-7-2"));
+ //Radio Button1 is selected
+ radio1.click();
+ System.out.println("Radio Button Option 1 Selected");
+ //Radio Button1 is de-selected and Radio Button2 is selected
+ radio2.click();
+ System.out.println("Radio Button Option 2 Selected");
+ }}
+ -------------------------------------------
+Demonstrate action classes in Selenium
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
+public class PG7 {
+public static void main(String[] args) {
+String baseUrl = "http://demo.guru99.com/test/newtours/";
+System.setProperty("webdriver.gecko.driver","C:\\geckodriver.exe");
+WebDriver driver = new FirefoxDriver();
+driver.get(baseUrl); 
+WebElement link_Home = 
+driver.findElement(By.linkText("Home"));
+WebElement td_Home = driver
+.findElement(By
+.xpath("//html/body/div"
++ "/table/tbody/tr/td"
++ "/table/tbody/tr/td"
++ "/table/tbody/tr/td"
++ "/table/tbody/tr"));
+Actions builder = new Actions(driver);
+Action mouseOverHome = builder
+.moveToElement(link_Home)
+.build();
+String bgColor = td_Home.getCssValue("background-color");
+System.out.println("Before hover: " + bgColor); 
+mouseOverHome.perform(); 
+bgColor = td_Home.getCssValue("background-color");
+System.out.println("After hover: " + bgColor);
+driver.close();
+}
+}
+
+-----------------------------------------------------------
+Installation of TestNg , running testNg and TestNg annotations
+
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterMethod;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.*;
+public class TestNG {
+WebDriver driver ;
+@Test
+public void f() {
+String baseUrl = "https://www.toolsqa.com/";
+System.out.println("Launching Google Chrome browser"); 
+driver = new ChromeDriver();
+driver.get(baseUrl);
+String testTitle = "Free QA Automation Tools For Everyone";
+String originalTitle = driver.getTitle();
+Assert.assertEquals(originalTitle, testTitle);
+}
+@BeforeMethod
+public void beforeMethod() {
+System.out.println("Starting Test On Chrome Browser");
+}
+@AfterMethod
+public void afterMethod() {
+driver.close();
+System.out.println("Finished Test On Chrome Browser");
+}
+}
+
+-------------------------------------------------
+: Demonstrate data driven Framework.
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver; import org.testng.Assert;
+import org.testng.annotations.AfterMethod; import org.testng.annotations.DataProvider; import 
+org.testng.annotations.Test;
+public class Thirteenth { WebDriver driver;
+@Test(dataProvider="testdata")
+public void demoClass(String username, String password) throws InterruptedException {
+System.setProperty("webdriver.gecko.driver","geckodriver.exe"); driver = new FirefoxDriver();
+driver.get("https://www.phptravels.net/login"); 
+driver.findElement(By.name("email")).sendKeys(username); 
+driver.findElement(By.name("password")).sendKeys(password);
+driver.findElement(By.xpath("/html/body/div[1]/div/div[2]/div[2]/div/form/ div[3]/button")).click();
+Thread.sleep(5000); Assert.assertTrue(driver.getTitle().matches("Dashboard -
+PHPTRAVELS"), "Invalid credentials"); System.out.println("Login successful");
+}
+@AfterMethod
+void ProgramTermination() { driver.quit();
+}
+@DataProvider(name="testdata") public Object[][] testDataExample(){
+ReadExcelFile configuration = new ReadExcelFile("F:\\STQA WORKSPACE\\stqa\\src\\pracs\\XYZ.xlsx");
+int rows = configuration.getRowCount(0); Object[][]signin_credentials = new Object[rows][2];
+for(int i=0;i<rows;i++)
+{
+signin_credentials[i][0] = configuration.getData(0, i, 0); signin_credentials[i][1] = 
+configuration.getData(0, i, 1);
+}
+return signin_credentials;
+}
+}
+
+------------------------------------------------
+: Demonstrate Validation Testing
+ assertEquals() in Selenium
+import org.junit.Assert;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+public class BrowserStackTutorials {
+@Test
+public void testAssertFunctions() {
+System.setProperty("webdriver.chrome.driver", 
+"C:\\I2EWebsiteTest\\Driver\\chromedriver.exe");
+WebDriver driver = new ChromeDriver();
+driver.navigate().to("https://www.browserstack.com/");
+String ActualTitle = driver.getTitle();
+String ExpectedTitle = "Most Reliable App & Cross Browser Testing Platform | 
+BrowserStack";
+Assert.assertEquals(ExpectedTitle, ActualTitle);
+}
+}
+
+Code For assertNotEquals() in Selenium
+package com.tests;
+import org.junit.Assert;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+public class BrowserStackTutorials {
+
+@Test
+public void testAssertFunctions() {
+System.setProperty("webdriver.chrome.driver", 
+"C:\\I2EWebsiteTest\\Driver\\chromedriver.exe");
+WebDriver driver = new ChromeDriver();
+driver.navigate().to("https://www.browserstack.com/");
+String ActualTitle = driver.getTitle();
+String ExpectedTitle = "Most Reliable App & Cross Browser Testing Platform | 
+browserstack";
+Assert.assertNotEquals(ActualTitle, ExpectedTitle);
+}
+}
+
+Code For assertTrue() in Selenium
+package com.tests;
+import static org.testng.Assert.assertTrue;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+public class BrowserStackTutorials {
+@Test
+public void testAssertFunctions() {
+System.setProperty("webdriver.chrome.driver", 
+"C:\\I2EWebsiteTest\\Driver\\chromedriver.exe");
+WebDriver driver = new ChromeDriver();
+driver.navigate().to("https://www.browserstack.com/");
+Boolean verifyTitle = driver.getTitle().equalsIgnoreCase("Most Reliable App & Cross Browser 
+Testing Platform | BrowserStack");
+assertTrue(verifyTitle);
+}
+}
+
+
+Code For assertFalse() in Selenium
+package com.tests;
+import static org.testng.Assert.assertFalse;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+public class BrowserStackTutorials {
+@Test
+public void testAssertFunctions() {
+System.setProperty("webdriver.chrome.driver", 
+"C:\\I2EWebsiteTest\\Driver\\chromedriver.exe");
+WebDriver driver = new ChromeDriver();
+driver.navigate().to("https://www.browserstack.com/");
+Boolean verifyTitle = driver.getTitle().equalsIgnoreCase("Most Reliable App & Cross Browser 
+Testing Platform");
+assertFalse(verifyTitle);
+}
+}
+
+Code Snippet For assertNull() in Selenium
+package com.tests;
+import static org.testng.Assert.assertNull;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+public class BrowserStackTutorials {
+@Test
+public void testAssertFunctions() {
+System.setProperty("webdriver.chrome.driver", 
+"C:\\I2EWebsiteTest\\Driver\\chromedriver.exe");
+WebDriver driver = new ChromeDriver();
+driver.navigate().to("https://www.browserstack.com/");
+String verifyAssertNull = null;
+assertNull(verifyAssertNull);
+}
+}
+
+Code For assertNotNull() in Selenium
+package com.tests;
+import static org.testng.Assert.assertNotNull;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+
+public class BrowserStackTutorials {
+// Author: Chaitanya Pujari
+@Test
+public void testAssertFunctions() {
+System.setProperty("webdriver.chrome.driver", 
+"C:\\I2EWebsiteTest\\Driver\\chromedriver.exe");
+WebDriver driver = new ChromeDriver();
+driver.navigate().to("https://www.browserstack.com/");
+Boolean verifyTitle = driver.getTitle().equalsIgnoreCase("Most Reliable App & Cross Browser 
+Testing Platform");
+assertNotNull(verifyTitle);
+}
+}
+
+Example of Hard Assert in Selenium
+package com.tests;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
+import static org.testng.Assert.assertTrue;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+public class BrowserStackTutorials {
+@Test
+public void testAssertFunctions() {
+System.setProperty("webdriver.chrome.driver", 
+"C:\\I2EWebsiteTest\\Driver\\chromedriver.exe");
+WebDriver driver = new ChromeDriver();
+driver.navigate().to("https://www.browserstack.com/");
+String ActualTitle = driver.getTitle();
+String verifyAssertNull=null;
+String ExpectedTitle = "Most Reliable App & Cross Browser Testing Platform | 
+BrowserStack";
+Boolean verifyTitleIsPresent=driver.getTitle().equalsIgnoreCase("Most Reliable App & Cross 
+Browser Testing Platform | BrowserStack");
+Boolean verifyTitleIsChanged=driver.getTitle().equalsIgnoreCase("Testing Platform | 
+BrowserStack");
+assertEquals(ExpectedTitle, ActualTitle);
+assertNotEquals(ExpectedTitle, "browserstack");
+assertTrue(verifyTitleIsPresent);
+assertFalse(verifyTitleIsChanged);
+
+assertNotNull(verifyTitleIsPresent);
+assertNull(verifyAssertNull);
+}
+}
+
+Example of Soft Assert in Selenium (or Verify in Selenium)
+package com.tests;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+public class BrowserStackTutorials {
+@Test
+public void softAssert() {
+System.setProperty("webdriver.chrome.driver", 
+"C:\\I2EWebsiteTest\\Driver\\chromedriver.exe");
+WebDriver driver = new ChromeDriver();
+SoftAssert softAssert = new SoftAssert();
+driver.navigate().to("https://www.browserstack.com/");
+String getActualTitle = driver.getTitle();
+Boolean verifyTitle = driver.getTitle().equalsIgnoreCase("Most Reliable App & Cross Browser 
+Testing Platform | BrowserStack");
+softAssert.assertEquals(getActualTitle, "Most Reliable App & Cross Browser Testing Platform 
+| BrowserStack");
+softAssert.assertNotEquals(getActualTitle, "Most Reliable App & Cross Browser Testing 
+Platform | BrowserStack");
+softAssert.assertNull(verifyTitle);
+softAssert.assertNotNull(verifyTitle);
+softAssert.assertTrue("BrowserStack".equals("Browserstack"), "First soft assert failed");
+softAssert.assertFalse("BrowserStack".equals("BrowserStack"), "Second soft assert failed");
+softAssert.assertAll(); 
+}
+}
+---------------------------------------------------
+
+Perform Regression Testing
+
+import java.time.Duration;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import com.qa.browserstack.base.BasePage;
+public class LoginPage extends BasePage {
+WebDriver driver;
+
+By emailID = By.id("user_email_login");
+By password = By.id("user_password");
+By SignIn = By.cssSelector("li.sign-in-link>a");
+By Login = By.id("user_submit");
+By checkBox = By.id("tnc_checkbox"); 
+public LoginPage(WebDriver driver)
+{
+this.driver = driver;
+}
+public String getLoginPageTitle()
+{
+return driver.getTitle();
+ }
+public void doLogin(String username,String pwd) {
+driver.findElement(SignIn).click();
+driver.findElement(emailID).sendKeys(username);
+driver.findElement(password).sendKeys(pwd);
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+driver.findElement(Login).click();
+}
+public Boolean signInLinkIsDisplayed()
+{
+boolean signIn;
+
+signIn = driver.findElement(SignIn).isDisplayed();
+return signIn;
+}
+}
+
+LoginPageTest class
+package com.qa.browserstack.tests;
+import com.qa.browserstack.base.BasePage;
+import com.qa.browserstack.pages.LoginPage;
+import static org.testng.Assert.assertEquals;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Properties;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Platform;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+import com.qa.browserstack.util.Constants;
+public class LoginPageTest {
+BasePage basePage;
+Properties prop;
+WebDriver driver;
+LoginPage loginPg;
+@BeforeTest
+public void setUp() throws Exception
+{
+basePage = new BasePage();
+prop = basePage.init_properties();
+driver = basePage.init_driver(prop);
+loginPg = new LoginPage(driver);
+}
+@Test(priority = 3)
+public void LoginTest() throws Exception
+{
+loginPg.doLogin(prop.getProperty("username"), prop.getProperty("password"));
+}
+@Test(priority = 2)
+public void LoginPageTitleTest()
+
+{
+String title = loginPg.getLoginPageTitle();
+System.out.println(title);
+Assert.assertEquals(title, Constants.LOGIN_PAGE_TITLE);
+}
+@Test(priority = 1)
+public void SignupLinkTest()
+{
+Assert.assertTrue(loginPg.signInLinkIsDisplayed());
+}
+@AfterTest
+public void tearDown()
+{
+driver.quit();
+}
+}
+

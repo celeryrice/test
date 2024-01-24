@@ -1,0 +1,428 @@
+TESTNG
+
+Demonstrate using TestNG framework test case priority.
+Certainly! TestNG is a popular testing framework for Java, and it provides a way to prioritize test cases using the `priority` attribute. Below are step-by-step instructions for installing TestNG in Eclipse and creating a simple project with test cases having priorities.
+
+### Step 1: Install TestNG in Eclipse
+
+1. Open Eclipse IDE.
+2. Go to `Help` -> `Eclipse Marketplace`.
+
+3. In the `Eclipse Marketplace` dialog, search for "TestNG" in the `Find` field.
+
+4. Look for "TestNG for Eclipse" in the search results.
+
+5. Click the `Go to the marketplace` link next to "TestNG for Eclipse".
+
+6. Click the `Install` button.
+
+7. Follow the instructions to complete the installation.
+
+8. Restart Eclipse when prompted.
+
+### Step 2: Create a Java Project
+
+1. Open Eclipse.
+
+2. Go to `File` -> `New` -> `Java Project`.
+
+3. Enter a project name (e.g., `TestNGDemo`) and click `Finish`.
+
+### Step 3: Create a TestNG Class
+
+1. Right-click on the `src` folder inside your project.
+
+2. Go to `New` -> `Other...` -> `TestNG` -> `TestNG Class`.
+
+3. Enter a name for the class (e.g., `TestNGExample`) and click `Finish`.
+
+4. Replace the content of the generated class with the following code:
+
+```java
+import org.testng.annotations.Test;
+
+public class TestNGExample {
+
+    @Test(priority = 1)
+    public void testMethod1() {
+        System.out.println("Test Method 1");
+    }
+
+    @Test(priority = 2)
+    public void testMethod2() {
+        System.out.println("Test Method 2");
+    }
+
+    @Test(priority = 0)
+    public void testMethod3() {
+        System.out.println("Test Method 3");
+    }
+}
+```
+
+In this example, each test method has a `priority` attribute indicating its priority. The lower the priority value, the higher the priority.
+
+### Step 4: Run TestNG Test
+
+1. Right-click on the `TestNGExample.java` file.
+
+2. Select `Run As` -> `TestNG Test`.
+
+3. You will see the output in the `Console` tab showing the execution order based on priorities.
+
+That's it! You've successfully installed TestNG in Eclipse, created a Java project, and demonstrated the usage of priorities in TestNG test cases. Adjust the code and priorities according to your specific test case requirements.
+------------------------------------------------------------------------------------
+#### Write a code to demonstrate regression testing using TestNG framework
+Regression testing using TestNG involves running a suite of tests to ensure that recent code changes haven't negatively impacted existing functionalities. Below are step-by-step instructions along with an example code to demonstrate regression testing using TestNG.
+
+### Step-by-Step Instructions:
+
+#### Step 1: Set up a new Maven Project in Eclipse
+
+1. Open Eclipse.
+2. Go to `File` -> `New` -> `Other...` -> `Maven` -> `Maven Project`.
+3. Choose the option "Create a simple project (skip archetype selection)" and click `Next`.
+4. Enter the Group Id and Artifact Id (e.g., `com.example` and `RegressionTestingDemo`).
+5. Click `Finish`.
+
+#### Step 2: Add Dependencies to `pom.xml`
+
+Add dependencies for TestNG in the `pom.xml` file:
+
+```xml
+<dependencies>
+    <!-- TestNG -->
+    <dependency>
+        <groupId>org.testng</groupId>
+        <artifactId>testng</artifactId>
+        <version>7.4.0</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+```
+
+#### Step 3: Create Test Classes
+
+Create two test classes - one for initial testing (`InitialTests.java`) and another for regression testing (`RegressionTests.java`).
+
+##### InitialTests.java
+
+```java
+import org.testng.annotations.Test;
+
+public class InitialTests {
+
+    @Test
+    public void testAddition() {
+        int result = Calculator.add(3, 5);
+        assert result == 8 : "Addition failed";
+    }
+
+    @Test
+    public void testSubtraction() {
+        int result = Calculator.subtract(8, 3);
+        assert result == 5 : "Subtraction failed";
+    }
+}
+```
+
+##### RegressionTests.java
+
+```java
+import org.testng.annotations.Test;
+
+public class RegressionTests {
+
+    @Test
+    public void testAddition() {
+        int result = Calculator.add(3, 5);
+        assert result == 8 : "Addition failed";
+    }
+
+    @Test
+    public void testSubtraction() {
+        int result = Calculator.subtract(8, 3);
+        assert result == 5 : "Subtraction failed";
+    }
+
+    @Test
+    public void testMultiplication() {
+        int result = Calculator.multiply(2, 4);
+        assert result == 8 : "Multiplication failed";
+    }
+
+    @Test
+    public void testDivision() {
+        int result = Calculator.divide(10, 2);
+        assert result == 5 : "Division failed";
+    }
+}
+```
+
+#### Step 4: Create a Utility Class
+
+Create a utility class (`Calculator.java`) to perform basic mathematical operations.
+
+```java
+public class Calculator {
+
+    public static int add(int a, int b) {
+        return a + b;
+    }
+
+    public static int subtract(int a, int b) {
+        return a - b;
+    }
+
+    public static int multiply(int a, int b) {
+        return a * b;
+    }
+
+    public static int divide(int a, int b) {
+        return a / b;
+    }
+}
+```
+
+#### Step 5: Run Initial Tests
+
+Right-click on `InitialTests.java`, select `Run As` -> `TestNG Test`. Ensure that initial tests pass.
+
+#### Step 6: Make Code Changes
+
+Make changes to the code, for example, add a new method (`power`) to the `Calculator` class:
+
+```java
+public static int power(int base, int exponent) {
+    return (int) Math.pow(base, exponent);
+}
+```
+
+#### Step 7: Run Regression Tests
+
+Right-click on `RegressionTests.java`, select `Run As` -> `TestNG Test`. Ensure that both initial and new regression tests pass.
+
+### Notes:
+
+- The `assert` statements in the test methods are used for simplicity. In a real-world scenario, consider using TestNG assertions or other assertion libraries.
+- Ensure that the TestNG plugin is installed in Eclipse for better integration and reporting.
+
+This example demonstrates a basic regression testing scenario using TestNG. Adjust the code and test scenarios based on your specific application requirements.
+----------------------------------------------------------------------------------------
+Write a code to implement TestNG annotations
+
+Certainly! TestNG annotations provide a way to control the flow and execution of test methods. Below is an example Java code that demonstrates the usage of various TestNG annotations:
+
+```java
+import org.testng.annotations.*;
+
+public class TestNGAnnotationsExample {
+
+    @BeforeSuite
+    public void beforeSuite() {
+        System.out.println("Before Suite - Executed once before the entire suite.");
+    }
+
+    @BeforeTest
+    public void beforeTest() {
+        System.out.println("Before Test - Executed before each <test> tag in the suite.");
+    }
+
+    @BeforeClass
+    public void beforeClass() {
+        System.out.println("Before Class - Executed before the first test method in the class.");
+    }
+
+    @BeforeMethod
+    public void beforeMethod() {
+        System.out.println("Before Method - Executed before each test method.");
+    }
+
+    @Test
+    public void testMethod1() {
+        System.out.println("Test Method 1");
+    }
+
+    @Test
+    public void testMethod2() {
+        System.out.println("Test Method 2");
+    }
+
+    @AfterMethod
+    public void afterMethod() {
+        System.out.println("After Method - Executed after each test method.");
+    }
+
+    @AfterClass
+    public void afterClass() {
+        System.out.println("After Class - Executed after the last test method in the class.");
+    }
+
+    @AfterTest
+    public void afterTest() {
+        System.out.println("After Test - Executed after each <test> tag in the suite.");
+    }
+
+    @AfterSuite
+    public void afterSuite() {
+        System.out.println("After Suite - Executed once after the entire suite.");
+    }
+}
+```
+
+This example contains methods annotated with various TestNG annotations:
+
+- `@BeforeSuite`: Executed once before the entire suite.
+- `@BeforeTest`: Executed before each `<test>` tag in the suite.
+- `@BeforeClass`: Executed before the first test method in the class.
+- `@BeforeMethod`: Executed before each test method.
+- `@Test`: Represents a test method.
+- `@AfterMethod`: Executed after each test method.
+- `@AfterClass`: Executed after the last test method in the class.
+- `@AfterTest`: Executed after each `<test>` tag in the suite.
+- `@AfterSuite`: Executed once after the entire suite.
+
+You can run this class as a TestNG test in Eclipse or any other supported IDE. The output in the console will show the order of execution based on these annotations.
+
+Make sure to have the TestNG library added to your project's dependencies in the `pom.xml` file if you're using Maven, or download and add the TestNG library manually if you're not using Maven.
+--------------------------------------------------------------------
+Demonstrate using TestNG framework data provider annotation
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver; import org.testng.Assert;
+import org.testng.annotations.AfterMethod; import org.testng.annotations.DataProvider; import 
+org.testng.annotations.Test;
+public class Thirteenth { WebDriver driver;
+@Test(dataProvider="testdata")
+public void demoClass(String username, String password) throws InterruptedException {
+System.setProperty("webdriver.gecko.driver","geckodriver.exe"); driver = new FirefoxDriver();
+driver.get("https://www.phptravels.net/login"); 
+driver.findElement(By.name("email")).sendKeys(username); 
+driver.findElement(By.name("password")).sendKeys(password);
+driver.findElement(By.xpath("/html/body/div[1]/div/div[2]/div[2]/div/form/ div[3]/button")).click();
+Thread.sleep(5000); Assert.assertTrue(driver.getTitle().matches("Dashboard -
+PHPTRAVELS"), "Invalid credentials"); System.out.println("Login successful");
+}
+@AfterMethod
+void ProgramTermination() { driver.quit();
+}
+@DataProvider(name="testdata") public Object[][] testDataExample(){
+ReadExcelFile configuration = new ReadExcelFile("F:\\STQA WORKSPACE\\stqa\\src\\pracs\\XYZ.xlsx");
+int rows = configuration.getRowCount(0); Object[][]signin_credentials = new Object[rows][2];
+for(int i=0;i<rows;i++)
+{
+signin_credentials[i][0] = configuration.getData(0, i, 0); signin_credentials[i][1] = 
+configuration.getData(0, i, 1);
+}
+return signin_credentials;
+}
+}
+
+-------------------------------------------------------------------
+34. Demonstrate using TestNG framework, data provider annotation for login process 
+of any web application
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver; import org.testng.Assert;
+import org.testng.annotations.AfterMethod; import org.testng.annotations.DataProvider; import 
+org.testng.annotations.Test;
+public class Thirteenth { WebDriver driver;
+@Test(dataProvider="testdata")
+public void demoClass(String username, String password) throws InterruptedException {
+System.setProperty("webdriver.gecko.driver","geckodriver.exe"); driver = new FirefoxDriver();
+driver.get("https://www.phptravels.net/login"); 
+driver.findElement(By.name("email")).sendKeys(username); 
+driver.findElement(By.name("password")).sendKeys(password);
+driver.findElement(By.xpath("/html/body/div[1]/div/div[2]/div[2]/div/form/ div[3]/button")).click();
+Thread.sleep(5000); Assert.assertTrue(driver.getTitle().matches("Dashboard -
+PHPTRAVELS"), "Invalid credentials"); System.out.println("Login successful");
+}
+@AfterMethod
+void ProgramTermination() { driver.quit();
+}
+@DataProvider(name="testdata") public Object[][] testDataExample(){
+ReadExcelFile configuration = new ReadExcelFile("F:\\STQA WORKSPACE\\stqa\\src\\pracs\\XYZ.xlsx");
+int rows = configuration.getRowCount(0); Object[][]signin_credentials = new Object[rows][2];
+for(int i=0;i<rows;i++)
+{
+signin_credentials[i][0] = configuration.getData(0, i, 0); signin_credentials[i][1] = 
+configuration.getData(0, i, 1);
+}
+return signin_credentials;
+}
+}
+
+--------------------------------------------------------------------
+38. Demonstrate TestNG asserts using TestNG framework.
+
+39. Demonstrate using TestNG framework test case skip feature.
+import org.testng.Assert;
+import org.testng.SkipException;
+import org.testng.annotations.Test;
+
+public class TestCaseSkipDemo {
+
+    @Test
+    public void test1() {
+        System.out.println("Executing Test 1");
+        Assert.assertTrue(true);  // This test will pass
+    }
+
+    @Test
+    public void test2() {
+        System.out.println("Executing Test 2");
+        throw new SkipException("Skipping this test intentionally");  // This test will be skipped
+    }
+
+    @Test
+    public void test3() {
+        System.out.println("Executing Test 3");
+        Assert.fail("Failing this test intentionally");  // This test will fail, but it will still be executed
+    }
+}
+
+41. Demonstrate regression testing using TestNG framework.
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+public class RegressionTestDemo {
+
+    // Assume these are some of the test cases from the previous version of the application
+
+    @Test
+    public void loginTest() {
+        System.out.println("Executing Login Test");
+        // Assume login functionality is being tested
+        Assert.assertTrue(true);
+    }
+
+    @Test
+    public void searchFunctionalityTest() {
+        System.out.println("Executing Search Functionality Test");
+        // Assume search functionality is being tested
+        Assert.assertTrue(true);
+    }
+
+    @Test
+    public void addToCartTest() {
+        System.out.println("Executing Add to Cart Test");
+        // Assume add to cart functionality is being tested
+        Assert.assertTrue(true);
+    }
+
+    // Assume these are new or modified test cases for the current version of the application
+
+    @Test
+    public void checkoutTest() {
+        System.out.println("Executing Checkout Test");
+        // Assume checkout functionality is being tested
+        Assert.assertTrue(true);
+    }
+
+    @Test
+    public void paymentTest() {
+        System.out.println("Executing Payment Test");
+        // Assume payment functionality is being tested
+        Assert.assertTrue(true);
+    }
+}

@@ -1,0 +1,570 @@
+27. Implement cross browser demonstration using Selenium webdriver
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class CrossBrowserDemo {
+
+    public static void main(String[] args) {
+        // Set the path to the ChromeDriver executable
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver.exe");
+
+        // Set the path to the GeckoDriver (Firefox) executable
+        System.setProperty("webdriver.gecko.driver", "path/to/geckodriver.exe");
+
+        // Execute tests on Chrome
+        WebDriver chromeDriver = new ChromeDriver();
+        executeTest(chromeDriver, "Chrome");
+
+        // Execute tests on Firefox
+        WebDriver firefoxDriver = new FirefoxDriver();
+        executeTest(firefoxDriver, "Firefox");
+
+        // Close browsers
+        chromeDriver.quit();
+        firefoxDriver.quit();
+    }
+
+    private static void executeTest(WebDriver driver, String browserName) {
+        // Navigate to the demo web page
+        driver.get("https://the-internet.herokuapp.com/login");
+
+        // Find username and password elements
+        WebElement username = driver.findElement(By.id("username"));
+        WebElement password = driver.findElement(By.id("password"));
+        WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
+
+        // Perform login
+        username.sendKeys("tomsmith");
+        password.sendKeys("SuperSecretPassword!");
+        loginButton.click();
+
+        // Wait for a while to observe the results (in a real scenario, you would have proper waits)
+        sleep(2000);
+
+        // Print the browser name and title
+        System.out.println("Browser: " + browserName);
+        System.out.println("Title: " + driver.getTitle());
+
+        // Logout
+        WebElement logoutButton = driver.findElement(By.xpath("//a[@href='/logout']"));
+        logoutButton.click();
+
+        // Wait for a while to observe the results (in a real scenario, you would have proper waits)
+        sleep(2000);
+    }
+
+    private static void sleep(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+---------------------------------------------------------------------------------------
+28. Demonstrate data driven framework using Selenium webdriver
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver; import org.testng.Assert;
+import org.testng.annotations.AfterMethod; import org.testng.annotations.DataProvider; import 
+org.testng.annotations.Test;
+public class Thirteenth { WebDriver driver;
+@Test(dataProvider="testdata")
+public void demoClass(String username, String password) throws InterruptedException {
+System.setProperty("webdriver.gecko.driver","geckodriver.exe"); driver = new FirefoxDriver();
+driver.get("https://www.phptravels.net/login"); 
+driver.findElement(By.name("email")).sendKeys(username); 
+driver.findElement(By.name("password")).sendKeys(password);
+driver.findElement(By.xpath("/html/body/div[1]/div/div[2]/div[2]/div/form/ div[3]/button")).click();
+Thread.sleep(5000); Assert.assertTrue(driver.getTitle().matches("Dashboard -
+PHPTRAVELS"), "Invalid credentials"); System.out.println("Login successful");
+}
+@AfterMethod
+void ProgramTermination() { driver.quit();
+}
+@DataProvider(name="testdata") public Object[][] testDataExample(){
+ReadExcelFile configuration = new ReadExcelFile("F:\\STQA WORKSPACE\\stqa\\src\\pracs\\XYZ.xlsx");
+int rows = configuration.getRowCount(0); Object[][]signin_credentials = new Object[rows][2];
+for(int i=0;i<rows;i++)
+{
+signin_credentials[i][0] = configuration.getData(0, i, 0); signin_credentials[i][1] = 
+configuration.getData(0, i, 1);
+}
+return signin_credentials;
+}
+}
+Create excel with username and password
+-----------------------------------------------------------------------
+
+30. Implement multi-select on drop down list using Selenium webdriver. 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
+
+public class MultiSelectDropdownDemo {
+
+    public static void main(String[] args) {
+        // Set the path to the ChromeDriver executable
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver.exe");
+
+        // Initialize WebDriver
+        WebDriver driver = new ChromeDriver();
+
+        // Navigate to the demo web page
+        driver.get("https://the-internet.herokuapp.com/dropdown");
+
+        // Locate the multi-select dropdown element
+        WebElement multiSelectDropdown = driver.findElement(By.id("dropdown"));
+
+        // Initialize Select class
+        Select select = new Select(multiSelectDropdown);
+
+        // Check if the dropdown supports multiple selections
+        if (select.isMultiple()) {
+            // Select options using different methods
+
+            // Option 1: By index
+            select.selectByIndex(1);
+
+            // Wait for a while to observe the selection (in a real scenario, you would have proper waits)
+            sleep(2000);
+
+            // Option 2: By visible text
+            select.selectByVisibleText("Option 2");
+
+            // Wait for a while to observe the selection (in a real scenario, you would have proper waits)
+            sleep(2000);
+
+            // Option 3: By value
+            select.selectByValue("1");
+
+            // Wait for a while to observe the selection (in a real scenario, you would have proper waits)
+            sleep(2000);
+
+            // Deselect options (optional, as multi-select allows multiple selections)
+            select.deselectByIndex(1);
+            select.deselectByVisibleText("Option 2");
+            select.deselectByValue("1");
+
+            // Wait for a while to observe the deselection (in a real scenario, you would have proper waits)
+            sleep(2000);
+
+            // Get all selected options
+            List<WebElement> selectedOptions = select.getAllSelectedOptions();
+            System.out.println("Selected Options:");
+            for (WebElement option : selectedOptions) {
+                System.out.println(option.getText());
+            }
+        }
+
+        // Close the browser
+        driver.quit();
+    }
+
+    private static void sleep(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+------------------------------------------------------------------
+
+33. Demonstrate Validation testing/check using alert.
+Validation testing involves checking whether the application behaves as expected and meets the specified requirements. In Selenium, you can perform validation checks using alerts. Below is an example Java code that demonstrates validation testing using alerts in Selenium WebDriver:
+
+```java
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class AlertValidationDemo {
+
+    public static void main(String[] args) {
+        // Set the path to the ChromeDriver executable
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver.exe");
+
+        // Initialize WebDriver
+        WebDriver driver = new ChromeDriver();
+
+        // Navigate to the demo web page with an alert
+        driver.get("https://the-internet.herokuapp.com/javascript_alerts");
+
+        // Locate and click the button to trigger an alert
+        WebElement alertButton = driver.findElement(By.xpath("//button[text()='Click for JS Alert']"));
+        alertButton.click();
+
+        // Switch to the alert
+        Alert alert = driver.switchTo().alert();
+
+        // Get the alert text and print it
+        String alertText = alert.getText();
+        System.out.println("Alert Text: " + alertText);
+
+        // Validate the alert text
+        assert alertText.equals("I am a JS Alert") : "Alert text validation failed";
+
+        // Accept (OK) the alert
+        alert.accept();
+
+        // Wait for a while to observe the result (in a real scenario, you would have proper waits)
+        sleep(2000);
+
+        // Close the browser
+        driver.quit();
+    }
+
+    private static void sleep(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+Make sure to replace the path in `System.setProperty("webdriver.chrome.driver", "path/to/chromedriver.exe");` with the actual path to your ChromeDriver executable.
+
+In this script:
+
+- We navigate to a web page that contains a button triggering a JavaScript alert.
+- We locate and click the button to trigger the alert.
+- We switch to the alert using `driver.switchTo().alert()`.
+- We get the text of the alert and validate it using an assertion.
+- If the validation fails, an assertion error is thrown.
+- We accept (OK) the alert using `alert.accept()`.
+
+You can extend this example to cover different types of alerts and additional validation checks. Always adapt the code to the structure and behavior of your application.
+------------------------------------------------------------------------------------
+
+35. Demonstrate locators (id, name, class) using selenium web driver
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class LocatorsDemo {
+
+    public static void main(String[] args) {
+        // Set the path to the ChromeDriver executable
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver.exe");
+
+        // Initialize WebDriver
+        WebDriver driver = new ChromeDriver();
+
+        // Navigate to the demo web page
+        driver.get("https://the-internet.herokuapp.com/login");
+
+        // Example 1: Locate element by ID
+        WebElement usernameById = driver.findElement(By.id("username"));
+        usernameById.sendKeys("testuser");
+
+        // Example 2: Locate element by Name
+        WebElement passwordByName = driver.findElement(By.name("password"));
+        passwordByName.sendKeys("testpassword");
+
+        // Example 3: Locate element by Class Name
+        WebElement loginButtonByClass = driver.findElement(By.className("radius"));
+        loginButtonByClass.click();
+
+        // Wait for a while to observe the results (in a real scenario, you would have proper waits)
+        sleep(2000);
+
+        // Close the browser
+        driver.quit();
+    }
+
+    private static void sleep(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+-----------------------------------------------------------------
+
+37. Demonstrate locators(name, class, partiallink text ) using 
+selenium web driver
+Certainly! Below is an example Java code that demonstrates using `name`, `class`, and `partialLinkText` locators in Selenium WebDriver:
+
+```java
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class LocatorsDemo {
+
+    public static void main(String[] args) {
+        // Set the path to the ChromeDriver executable
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver.exe");
+
+        // Initialize WebDriver
+        WebDriver driver = new ChromeDriver();
+
+        // Navigate to the demo web page
+        driver.get("https://the-internet.herokuapp.com/login");
+
+        // Example 1: Locate element by Name
+        WebElement usernameByName = driver.findElement(By.name("username"));
+        usernameByName.sendKeys("testuser");
+
+        // Example 2: Locate element by Class Name
+        WebElement passwordByClass = driver.findElement(By.className("password"));
+        passwordByClass.sendKeys("testpassword");
+
+        // Example 3: Locate element by Partial Link Text
+        WebElement forgotPasswordLink = driver.findElement(By.partialLinkText("Forgot Password"));
+        forgotPasswordLink.click();
+
+        // Wait for a while to observe the results (in a real scenario, you would have proper waits)
+        sleep(2000);
+
+        // Close the browser
+        driver.quit();
+    }
+
+    private static void sleep(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+Make sure to replace the path in `System.setProperty("webdriver.chrome.driver", "path/to/chromedriver.exe");` with the actual path to your ChromeDriver executable.
+
+In this script:
+
+- We navigate to a demo web page with a login form.
+- We use `By.name` to locate the username field using its `name` attribute.
+- We use `By.className` to locate the password field using its `class` attribute.
+- We use `By.partialLinkText` to locate the "Forgot Password" link using partial text matching.
+- We perform interactions with the located elements.
+
+You can adapt this code to your application's HTML structure and use other locators as needed. Each HTML element may have different attributes, so inspect the HTML source code to identify the appropriate locators.
+----------------------------------------------------------------------------
+
+
+40. Demonstrate implicit wait and explicit wait using selenium web driver.
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class WaitDemo {
+
+    public static void main(String[] args) {
+        // Set the path to the ChromeDriver executable
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver.exe");
+
+        // Initialize WebDriver
+        WebDriver driver = new ChromeDriver();
+
+        // Navigate to the demo web page
+        driver.get("https://the-internet.herokuapp.com/dynamic_loading/1");
+
+        // Example 1: Implicit Wait
+        driver.manage().timeouts().implicitlyWait(10, java.util.concurrent.TimeUnit.SECONDS);
+
+        // Locate the "Start" button and click it
+        WebElement startButton = driver.findElement(By.cssSelector("#start button"));
+        startButton.click();
+
+        // Locate the dynamic element using implicit wait
+        WebElement dynamicElement = driver.findElement(By.cssSelector("#finish"));
+        System.out.println("Dynamic Element Text (Implicit Wait): " + dynamicElement.getText());
+
+        // Navigate back to the initial state
+        driver.navigate().back();
+
+        // Example 2: Explicit Wait
+        // Locate the "Start" button again
+        startButton = driver.findElement(By.cssSelector("#start button"));
+        startButton.click();
+
+        // Explicitly wait for the dynamic element to be present
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebElement dynamicElementExplicit = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#finish")));
+
+        // Print the text of the dynamic element using explicit wait
+        System.out.println("Dynamic Element Text (Explicit Wait): " + dynamicElementExplicit.getText());
+
+        // Close the browser
+        driver.quit();
+    }
+}
+
+------------------------------------------------------------------------------------
+
+
+43. Demonstrate types of alerts using selenium web driver
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class AlertTypesDemo {
+
+    public static void main(String[] args) {
+        // Set the path to the ChromeDriver executable
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver.exe");
+
+        // Initialize WebDriver
+        WebDriver driver = new ChromeDriver();
+
+        // Navigate to the demo web page with different types of alerts
+        driver.get("https://the-internet.herokuapp.com/javascript_alerts");
+
+        // Example 1: Simple Alert
+        WebElement simpleAlertButton = driver.findElement(By.xpath("//button[text()='Click for JS Alert']"));
+        simpleAlertButton.click();
+
+        // Switch to the alert
+        Alert simpleAlert = driver.switchTo().alert();
+
+        // Get the alert text and print it
+        String simpleAlertText = simpleAlert.getText();
+        System.out.println("Simple Alert Text: " + simpleAlertText);
+
+        // Accept (OK) the alert
+        simpleAlert.accept();
+
+        // Wait for a while to observe the result (in a real scenario, you would have proper waits)
+        sleep(2000);
+
+        // Example 2: Confirm Alert
+        WebElement confirmAlertButton = driver.findElement(By.xpath("//button[text()='Click for JS Confirm']"));
+        confirmAlertButton.click();
+
+        // Switch to the alert
+        Alert confirmAlert = driver.switchTo().alert();
+
+        // Dismiss (Cancel) the alert
+        confirmAlert.dismiss();
+
+        // Wait for a while to observe the result (in a real scenario, you would have proper waits)
+        sleep(2000);
+
+        // Example 3: Prompt Alert
+        WebElement promptAlertButton = driver.findElement(By.xpath("//button[text()='Click for JS Prompt']"));
+        promptAlertButton.click();
+
+        // Switch to the alert
+        Alert promptAlert = driver.switchTo().alert();
+
+        // Type a text in the prompt alert
+        promptAlert.sendKeys("Test Input");
+
+        // Accept (OK) the prompt alert
+        promptAlert.accept();
+
+        // Wait for a while to observe the result (in a real scenario, you would have proper waits)
+        sleep(2000);
+
+        // Close the browser
+        driver.quit();
+    }
+
+    private static void sleep(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+------------------------------------------------------------------------------
+
+44. Demonstrate handling of textbox, checkbox, radio buttons using selenium web driver.
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class FormHandlingDemo {
+
+    public static void main(String[] args) {
+        // Set the path to the ChromeDriver executable
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver.exe");
+
+        // Initialize WebDriver
+        WebDriver driver = new ChromeDriver();
+
+        // Navigate to a demo web page with a form
+        driver.get("https://the-internet.herokuapp.com/checkboxes");
+
+        // Example 1: Handling Checkboxes
+        // Locate the checkboxes by their CSS selectors
+        WebElement checkbox1 = driver.findElement(By.cssSelector("input[type='checkbox']:nth-of-type(1)"));
+        WebElement checkbox2 = driver.findElement(By.cssSelector("input[type='checkbox']:nth-of-type(2)"));
+
+        // Check if checkbox1 is selected, if not, select it
+        if (!checkbox1.isSelected()) {
+            checkbox1.click();
+        }
+
+        // Uncheck checkbox2
+        if (checkbox2.isSelected()) {
+            checkbox2.click();
+        }
+
+        // Example 2: Handling Textboxes
+        // Locate the textbox by its ID
+        WebElement textbox = driver.findElement(By.id("username"));
+
+        // Clear the existing text (if any) and enter new text
+        textbox.clear();
+        textbox.sendKeys("SeleniumUser");
+
+        // Example 3: Handling Radio Buttons
+        // Navigate to a demo web page with radio buttons
+        driver.get("https://the-internet.herokuapp.com/radio_buttons");
+
+        // Locate the radio buttons by their CSS selectors
+        WebElement radioButton1 = driver.findElement(By.cssSelector("input[value='option1']"));
+        WebElement radioButton2 = driver.findElement(By.cssSelector("input[value='option2']"));
+
+        // Check if radioButton1 is selected, if not, select it
+        if (!radioButton1.isSelected()) {
+            radioButton1.click();
+        }
+
+        // Check if radioButton2 is selected, if not, select it
+        if (!radioButton2.isSelected()) {
+            radioButton2.click();
+        }
+
+        // Wait for a while to observe the result (in a real scenario, you would have proper waits)
+        sleep(2000);
+
+        // Close the browser
+        driver.quit();
+    }
+
+    private static void sleep(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
